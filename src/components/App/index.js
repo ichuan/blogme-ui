@@ -1,34 +1,25 @@
 import React from 'react';
-import logo from '../../assets/images/logo.svg';
-import { Helmet } from 'react-helmet';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
+import Home from '../Home';
+import Article from '../Article';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <Header/>
-      <Helmet>
-        <title>Helmet Test</title>
-      </Helmet>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <Footer/>
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <Switch>
+          <Route path="/p/:articleId">
+            <Article />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
   );
 }
-
-export default App;
