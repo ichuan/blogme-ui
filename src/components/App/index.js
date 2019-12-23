@@ -7,11 +7,13 @@ import Article from '../Article';
 import Api from '../../utils/api';
 import useGlobal from '../../utils/hooks';
 
+import './style.css';
+
 export default function App() {
   const globalActions = useGlobal()[1];
   useEffect(() => {
     Api.get('/config').then(r => globalActions.setConfig(r));
-    if (Api.getToken()) {
+    if (Api.hasToken()) {
       Api.post('/users/test-token').then(r => {
         if (r.username) {
           globalActions.setUser(r);
@@ -24,8 +26,10 @@ export default function App() {
       <div className="App">
         <Header />
         <Switch>
-          <Route path="/p/:articleId">
-            <Article />
+          <Route exact path="/p/:articleId">
+            <div className="container">
+              <Article />
+            </div>
           </Route>
           <Route path="/">
             <Home />

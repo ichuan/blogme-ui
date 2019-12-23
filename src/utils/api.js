@@ -47,7 +47,13 @@ export default {
     });
   },
 
-  get(endpoint) {
+  get(endpoint, querys) {
+    if (querys) {
+      querys = Object.keys(querys)
+        .map(key => `${key}=${querys[key]}`)
+        .join('&');
+      endpoint = `${endpoint}?${querys}`;
+    }
     return this.fetch('GET', endpoint);
   },
 
@@ -79,7 +85,7 @@ export default {
     saveToken('');
   },
 
-  getToken() {
+  hasToken() {
     return accessToken;
   },
 };

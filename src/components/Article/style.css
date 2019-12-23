@@ -1,0 +1,27 @@
+.article > .title {
+  font-size: 32px;
+  color: #333332;
+  word-wrap: break-word;
+}
+
+.article > .title a {
+  color: inherit;
+}
+
+@media screen and (min-width: 32.375em) {
+  .article > .title {
+    font-size: 47px;
+  }
+}
+
+.article + .article {
+  margin-top: 1.75em;
+  padding-top: 1.75em;
+  border-top: solid 1px #ddd;
+}
+
+.article > .meta {
+  color: #b3b3b1;
+  font-size: 14px;
+  font-weight: 400;
+}

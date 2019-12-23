@@ -18,11 +18,12 @@ export default function Header() {
                 <NavLink
                   className="navbar-item"
                   to="/"
+                  exact
                   activeClassName="is-active"
                 >
                   首页
                 </NavLink>
-                {globalState.me ? (
+                {globalState.user ? (
                   <React.Fragment>
                     <NavLink
                       className="navbar-item"
