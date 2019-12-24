@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
@@ -7,13 +7,27 @@ import './header.css';
 
 export default function Header() {
   const [globalState, globalActions] = useGlobal();
+  const [menuActive, setMenuActive] = useState(false);
 
   return (
     <section className="hero header is-info is-medium">
       <div className="hero-head">
-        <nav className="navbar">
+        <nav className="navbar is-info">
           <div className="container">
-            <div className="navbar-menu">
+            <div className="navbar-brand">
+              <a
+                href
+                className={`navbar-burger burger ${
+                  menuActive ? 'is-active' : ''
+                }`}
+                onClick={() => setMenuActive(!menuActive)}
+              >
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
+            </div>
+            <div className={`navbar-menu ${menuActive ? 'is-active' : ''}`}>
               <div className="navbar-end">
                 <NavLink
                   className="navbar-item"

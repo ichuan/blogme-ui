@@ -3,6 +3,18 @@
   background-size: cover;
 }
 
+.header .title {
+  font-size: 2.38rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.header .subtitle {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: #fff;
+}
+
 .header .title a {
   color: #fff;
 }
