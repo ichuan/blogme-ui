@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Octicon, { Clock } from '@primer/octicons-react';
+import Octicon, { Clock, Person } from '@primer/octicons-react';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
 
@@ -11,6 +11,7 @@ export default function({ item }) {
   let [article, setArticle] = useState(item || {});
   const globalState = useGlobal()[0];
   let standaloneMode = false;
+  let createdAt = article.created_at ? article.created_at.split('T')[0] : '-';
 
   if (!item) {
     standaloneMode = true;
@@ -38,8 +39,13 @@ export default function({ item }) {
         dangerouslySetInnerHTML={{ __html: article.content || '' }}
       ></div>
       <ul className="meta">
-        <li>
-          <Octicon icon={Clock} /> {article.created_at}
+        <li title={article.username}>
+          <Octicon icon={Person} />
+          {article.display_name}
+        </li>
+        <li title={article.created_at}>
+          <Octicon icon={Clock} />
+          {createdAt}
         </li>
       </ul>
     </div>
