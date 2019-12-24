@@ -35,3 +35,19 @@
 .article > .meta li .octicon {
   margin-right: 0.4em;
 }
+
+trix-editor.content {
+  box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05);
+  border-color: #dbdbdb;
+  border-radius: 4px;
+}
+
+trix-editor.content:focus,
+trix-editor.content:active {
+  border-color: #3273dc;
+  box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+}
+
+.content.trix-content h1 {
+  margin-bottom: 0.4em;
+}

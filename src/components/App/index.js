@@ -4,16 +4,18 @@ import Header from '../Header';
 import Footer from '../Footer';
 import Home from '../Home';
 import Article from '../Article';
+import NewArticle from '../Article/New';
+import ManageArticle from '../Article/Manage';
 import Api from '../../utils/api';
 import useGlobal from '../../utils/hooks';
 
 import './style.css';
 
 export default function App() {
-  const globalActions = useGlobal()[1];
+  const [globalState, globalActions] = useGlobal();
   useEffect(() => {
     Api.get('/config').then(r => globalActions.setConfig(r));
-    if (Api.hasToken()) {
+    if (Api.hasToken() && !globalState.user) {
       Api.post('/users/test-token').then(r => {
         if (r.username) {
           globalActions.setUser(r);
@@ -26,6 +28,12 @@ export default function App() {
       <div className="App">
         <Header />
         <Switch>
+          <Route exact path="/new">
+            <NewArticle />
+          </Route>
+          <Route exact path="/admin">
+            <ManageArticle />
+          </Route>
           <Route exact path="/p/:articleId">
             <div className="container">
               <Article />

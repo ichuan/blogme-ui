@@ -35,7 +35,7 @@ export default function({ item }) {
         )}
       </h1>
       <div
-        className="content"
+        className="content trix-content"
         dangerouslySetInnerHTML={{ __html: article.content || '' }}
       ></div>
       <ul className="meta">

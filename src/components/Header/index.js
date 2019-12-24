@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
+import LoginModal from './LoginModal';
 
 import './header.css';
 
 export default function Header() {
   const [globalState, globalActions] = useGlobal();
   const [menuActive, setMenuActive] = useState(false);
+  const [loginActive, setLoginActive] = useState(false);
+  const history = useHistory();
 
   return (
     <section className="hero header is-info is-medium">
@@ -16,7 +19,7 @@ export default function Header() {
           <div className="container">
             <div className="navbar-brand">
               <a
-                href
+                href="# "
                 className={`navbar-burger burger ${
                   menuActive ? 'is-active' : ''
                 }`}
@@ -29,16 +32,15 @@ export default function Header() {
             </div>
             <div className={`navbar-menu ${menuActive ? 'is-active' : ''}`}>
               <div className="navbar-end">
-                <NavLink
-                  className="navbar-item"
-                  to="/"
-                  exact
-                  activeClassName="is-active"
-                >
-                  首页
-                </NavLink>
                 {globalState.user ? (
                   <React.Fragment>
+                    <NavLink
+                      className="navbar-item"
+                      to="/new"
+                      activeClassName="is-active"
+                    >
+                      发布
+                    </NavLink>
                     <NavLink
                       className="navbar-item"
                       to="/admin"
@@ -46,26 +48,26 @@ export default function Header() {
                     >
                       管理
                     </NavLink>
-                    <NavLink
+                    <a
+                      href="# "
                       className="navbar-item"
-                      to="/logout"
-                      activeClassName="is-active"
                       onClick={() => {
                         Api.logout();
                         globalActions.setUser(null);
+                        history.push('/');
                       }}
                     >
                       退出
-                    </NavLink>
+                    </a>
                   </React.Fragment>
                 ) : (
-                  <NavLink
+                  <a
+                    href="# "
                     className="navbar-item"
-                    to="/login"
-                    activeClassName="is-active"
+                    onClick={() => setLoginActive(true)}
                   >
                     登录
-                  </NavLink>
+                  </a>
                 )}
               </div>
             </div>
@@ -80,6 +82,14 @@ export default function Header() {
           <h2 className="subtitle">{globalState.config['site.desc']}</h2>
         </div>
       </div>
+      <LoginModal
+        isActive={loginActive}
+        onClose={() => setLoginActive(false)}
+        onLoggedin={user => {
+          setLoginActive(false);
+          globalActions.setUser(user);
+        }}
+      />
     </section>
   );
 }

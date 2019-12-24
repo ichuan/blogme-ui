@@ -1,5 +1,5 @@
 .hero + .container {
-  margin-top: 3.5em;
+  margin: 3.5em auto;
   padding: 0 2em;
 }
 

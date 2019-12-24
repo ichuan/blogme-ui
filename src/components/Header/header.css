@@ -18,3 +18,7 @@
 .header .title a {
   color: #fff;
 }
+
+.modal .title {
+  color: #363636 !important;
+}

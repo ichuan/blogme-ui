@@ -43,7 +43,11 @@ export default {
           callback(r);
         }
       }
-      return r.json();
+      const ret = r.json();
+      if (!r.ok) {
+        return ret.then(rr => Promise.reject(rr.detail || rr));
+      }
+      return ret;
     });
   },
 
