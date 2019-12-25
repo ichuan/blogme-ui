@@ -35,8 +35,11 @@ export default {
   fetch(method, endpoint, body) {
     const options = { headers: headers(), method };
     if (body && (method === 'POST' || method === 'PUT')) {
-      options.headers['Content-Type'] = 'application/json';
-      options.body = JSON.stringify(body);
+      options.body = body;
+      if (!(body instanceof FormData)) {
+        options.body = JSON.stringify(body);
+        options.headers['Content-Type'] = 'application/json';
+      }
     }
     return fetch(`${apiBase}${endpoint}`, options).then(r => {
       if (statusCallbacks[r.status]) {
