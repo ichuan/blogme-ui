@@ -35,7 +35,8 @@ export default {
   fetch(method, endpoint, body) {
     const options = { headers: headers(), method };
     if (body && (method === 'POST' || method === 'PUT')) {
-      options.body = body;
+      options.headers['Content-Type'] = 'application/json';
+      options.body = JSON.stringify(body);
     }
     return fetch(`${apiBase}${endpoint}`, options).then(r => {
       if (statusCallbacks[r.status]) {
@@ -87,6 +88,33 @@ export default {
 
   logout() {
     saveToken('');
+  },
+
+  upload(endpoint, file, onProgress) {
+    return new Promise((resolve, reject) => {
+      let data = new FormData(),
+        xhr = new XMLHttpRequest(),
+        url = apiBase + endpoint;
+      data.append('file', file);
+      xhr.open('POST', url, true);
+      xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`);
+      xhr.upload.addEventListener('progress', e => {
+        onProgress((e.loaded / e.total) * 100);
+      });
+      xhr.addEventListener('load', e => {
+        if (xhr.readyState === xhr.DONE) {
+          try {
+            let ret = JSON.parse(xhr.responseText);
+            xhr.status === 200
+              ? resolve({ url: `${apiBase}${ret.url}` })
+              : reject(ret.detail || ret);
+          } catch (e) {
+            reject(e);
+          }
+        }
+      });
+      xhr.send(data);
+    });
   },
 
   hasToken() {
