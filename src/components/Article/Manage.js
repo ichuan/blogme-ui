@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Api from '../../utils/api';
 import Pager from '../Pager';
+import useGlobal from '../../utils/hooks';
 
 const deleteArticle = id => {
   return Api.delete(`/articles/${id}`);
@@ -35,9 +36,11 @@ const Row = ({ item, onDelete }) => {
 export default () => {
   const [articles, setArticles] = useState([]);
   const [params, setParams] = useState({ limit: 20 });
+  const globalState = useGlobal()[0];
   useEffect(() => {
-    Api.get('/articles/archive', params).then(r => setArticles(r));
-  }, [params]);
+    globalState.user &&
+      Api.get('/articles/archive', params).then(r => setArticles(r));
+  }, [params, globalState.user]);
   return (
     <div className="container admin">
       <table className="table is-hoverable is-fullwidth">
