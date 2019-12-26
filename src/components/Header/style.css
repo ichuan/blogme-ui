@@ -22,3 +22,9 @@
 .modal .title {
   color: #363636 !important;
 }
+
+@media screen and (min-width: 1024px) {
+  .hero.is-info .navbar-dropdown .navbar-item {
+    color: #4a4a4a;
+  }
+}

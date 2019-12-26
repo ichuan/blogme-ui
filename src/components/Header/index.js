@@ -4,7 +4,7 @@ import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
 import LoginModal from './LoginModal';
 
-import './header.css';
+import './style.css';
 
 export default function Header() {
   const [globalState, globalActions] = useGlobal();
@@ -41,13 +41,28 @@ export default function Header() {
                     >
                       发布
                     </NavLink>
-                    <NavLink
-                      className="navbar-item"
-                      to="/admin"
-                      activeClassName="is-active"
-                    >
-                      管理
-                    </NavLink>
+                    <div className="navbar-item has-dropdown is-hoverable">
+                      <a href="# " className="navbar-link">
+                        管理
+                      </a>
+                      <div className="navbar-dropdown is-right">
+                        <NavLink
+                          className="navbar-item"
+                          to="/admin/article"
+                          activeClassName="is-active"
+                        >
+                          文章
+                        </NavLink>
+                        <NavLink
+                          className="navbar-item"
+                          to="/admin/user"
+                          activeClassName="is-active"
+                        >
+                          用户
+                        </NavLink>
+                      </div>
+                    </div>
+
                     <a
                       href="# "
                       className="navbar-item"

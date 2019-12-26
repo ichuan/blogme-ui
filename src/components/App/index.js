@@ -35,7 +35,7 @@ export default function App() {
           <Route exact path="/new">
             <NewArticle />
           </Route>
-          <Route exact path="/admin">
+          <Route exact path="/admin/article">
             <ManageArticle />
           </Route>
           <Route exact path="/p/:articleId">
