@@ -7,6 +7,7 @@ import Article from '../Article';
 import NewArticle from '../Article/New';
 import EditArticle from '../Article/Edit';
 import ManageArticle from '../Article/Manage';
+import ManageUser from '../User';
 import Api from '../../utils/api';
 import useGlobal from '../../utils/hooks';
 
@@ -37,6 +38,9 @@ export default function App() {
           </Route>
           <Route exact path="/admin/article">
             <ManageArticle />
+          </Route>
+          <Route exact path="/admin/user">
+            <ManageUser />
           </Route>
           <Route exact path="/p/:articleId">
             <div className="container">
