@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import Api from '../../utils/api';
 import Pager from '../Pager';
 
-const Row = ({ item }) => {
+const deleteArticle = id => {
+  return Api.delete(`/articles/${id}`);
+};
+
+const Row = ({ item, onDelete }) => {
   return (
     <tr>
       <td>
@@ -15,7 +19,13 @@ const Row = ({ item }) => {
       <td>{item.created_at}</td>
       <td>
         <div className="buttons are-small">
-          <button className="button is-danger is-light">删除</button>
+          <button
+            type="button"
+            className="button is-danger is-light"
+            onClick={onDelete}
+          >
+            删除
+          </button>
         </div>
       </td>
     </tr>
@@ -24,7 +34,7 @@ const Row = ({ item }) => {
 
 export default () => {
   const [articles, setArticles] = useState([]);
-  const [params, setParams] = useState({});
+  const [params, setParams] = useState({ limit: 20 });
   useEffect(() => {
     Api.get('/articles/archive', params).then(r => setArticles(r));
   }, [params]);
@@ -41,7 +51,18 @@ export default () => {
         </thead>
         <tbody>
           {articles.map(i => (
-            <Row item={i} key={i.id} />
+            <Row
+              item={i}
+              key={i.id}
+              onDelete={() =>
+                window.confirm(`确定删除文章「${i.subject}」？`) &&
+                deleteArticle(i.id)
+                  .then(() => {
+                    setArticles(articles.filter(j => j.id !== i.id));
+                  })
+                  .catch(e => alert(e))
+              }
+            />
           ))}
         </tbody>
       </table>
