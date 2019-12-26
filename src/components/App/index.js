@@ -5,6 +5,7 @@ import Footer from '../Footer';
 import Home from '../Home';
 import Article from '../Article';
 import NewArticle from '../Article/New';
+import EditArticle from '../Article/Edit';
 import ManageArticle from '../Article/Manage';
 import Api from '../../utils/api';
 import useGlobal from '../../utils/hooks';
@@ -28,6 +29,9 @@ export default function App() {
       <div className="App">
         <Header />
         <Switch>
+          <Route exact path="/edit/:articleId">
+            <EditArticle />
+          </Route>
           <Route exact path="/new">
             <NewArticle />
           </Route>
