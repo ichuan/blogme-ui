@@ -25,7 +25,13 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
-    <script>window._API_BASE = 'http://127.0.0.1:8000';</script>
+    <script>
+      if (/^localhost|127\.0\.0\.1$/.test(location.hostname)) {
+        window._API_BASE = 'http://127.0.0.1:8000/api';
+      } else {
+        window._API_BASE = location.protocol + '//' + location.host + '/api';
+      }
+      </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

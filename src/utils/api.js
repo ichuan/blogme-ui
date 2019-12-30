@@ -1,7 +1,8 @@
 import fetch from 'unfetch';
 
 let accessToken = window.localStorage.getItem('token');
-let apiBase = window._API_BASE;
+let apiBase = window._API_BASE,
+  apiRoot = /https?:\/\/[^/]+/i.exec(apiBase)[0];
 
 const saveToken = token => {
   accessToken = token;
@@ -109,7 +110,7 @@ export default {
           try {
             let ret = JSON.parse(xhr.responseText);
             xhr.status === 200
-              ? resolve({ url: `${apiBase}${ret.url}` })
+              ? resolve({ url: `${apiRoot}${ret.url}` })
               : reject(ret.detail || ret);
           } catch (e) {
             reject(e);
