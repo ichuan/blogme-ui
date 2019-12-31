@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Switch, Route } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 import Home from '../Home';
@@ -12,6 +12,10 @@ import Api from '../../utils/api';
 import useGlobal from '../../utils/hooks';
 
 import './style.css';
+
+const Router = /micromessenger/i.test(navigator.userAgent)
+  ? HashRouter
+  : BrowserRouter;
 
 export default function App() {
   const [globalState, globalActions] = useGlobal();
