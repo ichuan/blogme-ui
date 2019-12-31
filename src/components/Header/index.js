@@ -19,7 +19,7 @@ export default function Header() {
           <div className="container">
             <div className="navbar-brand">
               <a
-                href="# "
+                href="javascript:;"
                 className={`navbar-burger burger ${
                   menuActive ? 'is-active' : ''
                 }`}
@@ -42,7 +42,7 @@ export default function Header() {
                       发布
                     </NavLink>
                     <div className="navbar-item has-dropdown is-hoverable">
-                      <a href="# " className="navbar-link">
+                      <a href="javascript:;" className="navbar-link">
                         管理
                       </a>
                       <div className="navbar-dropdown is-right">
@@ -64,7 +64,7 @@ export default function Header() {
                     </div>
 
                     <a
-                      href="# "
+                      href="javascript:;"
                       className="navbar-item"
                       onClick={() => {
                         Api.logout();
@@ -77,7 +77,7 @@ export default function Header() {
                   </React.Fragment>
                 ) : (
                   <a
-                    href="# "
+                    href="javascript:;"
                     className="navbar-item"
                     onClick={() => setLoginActive(true)}
                   >
