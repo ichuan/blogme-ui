@@ -43,32 +43,34 @@ export default () => {
   }, [params, globalState.user]);
   return (
     <div className="container admin">
-      <table className="table is-hoverable is-fullwidth">
-        <thead>
-          <tr>
-            <th>标题</th>
-            <th>作者</th>
-            <th>时间</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          {articles.map(i => (
-            <Row
-              item={i}
-              key={i.id}
-              onDelete={() =>
-                window.confirm(`确定删除文章「${i.subject}」？`) &&
-                deleteArticle(i.id)
-                  .then(() => {
-                    setArticles(articles.filter(j => j.id !== i.id));
-                  })
-                  .catch(e => alert(e))
-              }
-            />
-          ))}
-        </tbody>
-      </table>
+      <div className="table-container">
+        <table className="table is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>标题</th>
+              <th>作者</th>
+              <th>时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {articles.map(i => (
+              <Row
+                item={i}
+                key={i.id}
+                onDelete={() =>
+                  window.confirm(`确定删除文章「${i.subject}」？`) &&
+                  deleteArticle(i.id)
+                    .then(() => {
+                      setArticles(articles.filter(j => j.id !== i.id));
+                    })
+                    .catch(e => alert(e))
+                }
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
       <Pager items={articles} curParams={params} onClick={p => setParams(p)} />
     </div>
   );

@@ -73,40 +73,42 @@ export default () => {
           添加
         </button>
       </div>
-      <table className="table is-hoverable is-fullwidth">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>用户名</th>
-            <th>昵称</th>
-            <th>邮箱</th>
-            <th>管理员</th>
-            <th>上次登录</th>
-            <th>注册时间</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(i => (
-            <Row
-              item={i}
-              key={i.id}
-              onDelete={() =>
-                window.confirm(`确定删除用户「${i.username}」？`) &&
-                deleteUser(i.id)
-                  .then(() => {
-                    setUsers(users.filter(j => j.id !== i.id));
-                  })
-                  .catch(e => alert(e))
-              }
-              onEdit={() => {
-                setEditingUser(i);
-                setModalActive(true);
-              }}
-            />
-          ))}
-        </tbody>
-      </table>
+      <div className="table-container">
+        <table className="table is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>用户名</th>
+              <th>昵称</th>
+              <th>邮箱</th>
+              <th>管理员</th>
+              <th>上次登录</th>
+              <th>注册时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(i => (
+              <Row
+                item={i}
+                key={i.id}
+                onDelete={() =>
+                  window.confirm(`确定删除用户「${i.username}」？`) &&
+                  deleteUser(i.id)
+                    .then(() => {
+                      setUsers(users.filter(j => j.id !== i.id));
+                    })
+                    .catch(e => alert(e))
+                }
+                onEdit={() => {
+                  setEditingUser(i);
+                  setModalActive(true);
+                }}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
       <Pager items={users} curParams={params} onClick={p => setParams(p)} />
       <EditModal
         isActive={modalActive}
