@@ -26,6 +26,9 @@
   margin-top: -1em;
   margin-bottom: 2em;
 }
+.article > .meta a {
+  color: #b3b3b1;
+}
 
 .article > .meta li {
   display: inline;

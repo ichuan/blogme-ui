@@ -1,17 +1,12 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { BrowserRouter, HashRouter, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 import Home from '../Home';
 import Article from '../Article';
 import Api from '../../utils/api';
 import useGlobal from '../../utils/hooks';
-
 import './style.css';
-
-const Router = /micromessenger/i.test(navigator.userAgent)
-  ? HashRouter
-  : BrowserRouter;
 
 const NewArticle = lazy(() => import('../Article/New')),
   EditArticle = lazy(() => import('../Article/Edit')),

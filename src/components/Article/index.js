@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Octicon, { Clock, Person } from '@primer/octicons-react';
+import Octicon, { Clock, Person, Pencil } from '@primer/octicons-react';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
 
@@ -48,6 +48,16 @@ export default function({ item }) {
           <Octicon icon={Clock} />
           {createdAt}
         </li>
+        {globalState.user &&
+          (globalState.user.id === article.user_id ||
+            globalState.user.is_superuser) && (
+            <li>
+              <Link to={`/edit/${article.id}`}>
+                <Octicon icon={Pencil} />
+                编辑
+              </Link>
+            </li>
+          )}
       </ul>
     </div>
   );
