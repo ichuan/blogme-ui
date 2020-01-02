@@ -22,33 +22,36 @@ export default ({ item = {} }) => {
     <div className="container editor">
       {error && <div className="notification is-danger">{error}</div>}
       <form>
-        <div className="field is-pulled-right">
-          <div className="control">
-            <button
-              type="button"
-              className="button is-info"
-              onClick={() => {
-                saveArticle(subject, content, item.id)
-                  .then(r => history.push(`/p/${r.id || item.id}`))
-                  .catch(setError);
-              }}
-            >
-              {item.id ? '保存' : '发布'}
-            </button>
-          </div>
+        <div className="has-text-right">
+          <button
+            type="button"
+            className="button is-info"
+            onClick={() => {
+              saveArticle(subject, content, item.id)
+                .then(r => history.push(`/p/${r.id || item.id}`))
+                .catch(setError);
+            }}
+          >
+            {item.id ? '保存' : '发布'}
+          </button>
         </div>
         <div className="field">
+          <label className="label">标题</label>
           <div className="control">
             <input
               className="input"
               type="text"
-              placeholder="标题"
               value={subject}
               onChange={e => setSubject(e.target.value)}
             />
           </div>
         </div>
-        <Editor value={content} onChange={setContent} />
+        <div className="field">
+          <label className="label">正文</label>
+          <div className="control">
+            <Editor value={content} onChange={setContent} />
+          </div>
+        </div>
       </form>
     </div>
   );

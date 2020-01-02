@@ -45,19 +45,8 @@ export default ({ value, onChange }) => {
   }, [onChange]);
   return (
     <div>
-      <input
-        id={id}
-        ref={elInput}
-        type="hidden"
-        name="content"
-        value={value}
-        onChange={console.log}
-      />
-      <trix-editor
-        placeholder="正文"
-        input={id}
-        class="content trix-content"
-      ></trix-editor>
+      <input id={id} ref={elInput} type="hidden" name="content" value={value} />
+      <trix-editor input={id} class="content trix-content"></trix-editor>
     </div>
   );
 };
