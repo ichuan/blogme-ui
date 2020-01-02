@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Header() {
+export default () => {
   return (
     <footer className="footer">
       <div className="content has-text-centered">
@@ -8,4 +8,4 @@ export default function Header() {
       </div>
     </footer>
   );
-}
+};

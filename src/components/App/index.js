@@ -13,7 +13,7 @@ const NewArticle = lazy(() => import('../Article/New')),
   ManageArticle = lazy(() => import('../Article/Manage')),
   ManageUser = lazy(() => import('../User'));
 
-export default function App() {
+export default () => {
   const [globalState, globalActions] = useGlobal();
   useEffect(() => {
     Api.get('/config').then(r => globalActions.setConfig(r));
@@ -49,4 +49,4 @@ export default function App() {
       </Suspense>
     </Router>
   );
-}
+};

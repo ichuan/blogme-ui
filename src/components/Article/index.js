@@ -8,7 +8,7 @@ import Api from '../../utils/api';
 import './style.css';
 import 'trix/dist/trix.css';
 
-export default function({ item }) {
+export default ({ item }) => {
   let [article, setArticle] = useState(item || {});
   const globalState = useGlobal()[0];
   let standaloneMode = false;
@@ -61,4 +61,4 @@ export default function({ item }) {
       </ul>
     </div>
   );
-}
+};

@@ -5,7 +5,7 @@ import Article from '../Article';
 import Pager from '../Pager';
 import Api from '../../utils/api';
 
-export default function() {
+export default () => {
   const globalState = useGlobal()[0];
   const [articles, setArticles] = useState([]);
   const [params, setParams] = useState({});
@@ -23,4 +23,4 @@ export default function() {
       <Pager items={articles} curParams={params} onClick={p => setParams(p)} />
     </div>
   );
-}
+};

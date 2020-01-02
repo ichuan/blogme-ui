@@ -7,7 +7,7 @@ import VoidAnchar from '../../utils/anchor';
 
 import './style.css';
 
-export default function Header() {
+export default () => {
   const [globalState, globalActions] = useGlobal();
   const [menuActive, setMenuActive] = useState(false);
   const [loginActive, setLoginActive] = useState(false);
@@ -107,4 +107,4 @@ export default function Header() {
       />
     </section>
   );
-}
+};
