@@ -3,6 +3,7 @@ import { Link, NavLink, useHistory } from 'react-router-dom';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
 import LoginModal from './LoginModal';
+import VoidAnchar from '../../utils/anchor';
 
 import './style.css';
 
@@ -18,8 +19,7 @@ export default function Header() {
         <nav className="navbar is-info">
           <div className="container">
             <div className="navbar-brand">
-              <a
-                href="javascript:;"
+              <VoidAnchar
                 className={`navbar-burger burger ${
                   menuActive ? 'is-active' : ''
                 }`}
@@ -28,7 +28,7 @@ export default function Header() {
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
-              </a>
+              </VoidAnchar>
             </div>
             <div className={`navbar-menu ${menuActive ? 'is-active' : ''}`}>
               <div className="navbar-end">
@@ -42,9 +42,7 @@ export default function Header() {
                       发布
                     </NavLink>
                     <div className="navbar-item has-dropdown is-hoverable">
-                      <a href="javascript:;" className="navbar-link">
-                        管理
-                      </a>
+                      <VoidAnchar className="navbar-link">管理</VoidAnchar>
                       <div className="navbar-dropdown is-right">
                         <NavLink
                           className="navbar-item"
@@ -63,8 +61,7 @@ export default function Header() {
                       </div>
                     </div>
 
-                    <a
-                      href="javascript:;"
+                    <VoidAnchar
                       className="navbar-item"
                       onClick={() => {
                         Api.logout();
@@ -73,16 +70,15 @@ export default function Header() {
                       }}
                     >
                       退出
-                    </a>
+                    </VoidAnchar>
                   </React.Fragment>
                 ) : (
-                  <a
-                    href="javascript:;"
+                  <VoidAnchar
                     className="navbar-item"
                     onClick={() => setLoginActive(true)}
                   >
                     登录
-                  </a>
+                  </VoidAnchar>
                 )}
               </div>
             </div>
