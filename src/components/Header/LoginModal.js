@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Api from '../../utils/api';
 
 const submitLogin = (username, password) => {
@@ -14,6 +14,7 @@ export default ({ isActive, onClose, onLoggedin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const elInput = useRef(null);
   const _onClose = () => {
     setError('');
     onClose();
@@ -23,6 +24,11 @@ export default ({ isActive, onClose, onLoggedin }) => {
       .then(onLoggedin)
       .catch(setError);
   };
+  useEffect(() => {
+    if (isActive && elInput.current) {
+      elInput.current.focus();
+    }
+  }, [isActive]);
   return (
     <div className={`modal login ${isActive ? 'is-active' : ''}`}>
       <div className="modal-background"></div>
@@ -37,6 +43,7 @@ export default ({ isActive, onClose, onLoggedin }) => {
                 <input
                   className="input"
                   type="text"
+                  ref={elInput}
                   onChange={e => setUsername(e.target.value)}
                 />
               </div>
