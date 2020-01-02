@@ -14,7 +14,6 @@ export default () => {
   const [loginActive, setLoginActive] = useState(false);
   const history = useHistory();
   useEffect(() => {}, [globalState.config]);
-  console.log(globalState.config['site.header-bg']);
 
   return (
     <section
