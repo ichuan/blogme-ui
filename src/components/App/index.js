@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import { BrowserRouter, HashRouter, Switch, Route } from 'react-router-dom';
 import Header from '../Header';
 import Footer from '../Footer';
 import Home from '../Home';
 import Article from '../Article';
-import NewArticle from '../Article/New';
-import EditArticle from '../Article/Edit';
-import ManageArticle from '../Article/Manage';
-import ManageUser from '../User';
 import Api from '../../utils/api';
 import useGlobal from '../../utils/hooks';
 
@@ -16,6 +12,11 @@ import './style.css';
 const Router = /micromessenger/i.test(navigator.userAgent)
   ? HashRouter
   : BrowserRouter;
+
+const NewArticle = lazy(() => import('../Article/New')),
+  EditArticle = lazy(() => import('../Article/Edit')),
+  ManageArticle = lazy(() => import('../Article/Manage')),
+  ManageUser = lazy(() => import('../User'));
 
 export default function App() {
   const [globalState, globalActions] = useGlobal();
@@ -31,32 +32,26 @@ export default function App() {
   }, [globalActions]);
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route exact path="/edit/:articleId">
-            <EditArticle />
-          </Route>
-          <Route exact path="/new">
-            <NewArticle />
-          </Route>
-          <Route exact path="/admin/article">
-            <ManageArticle />
-          </Route>
-          <Route exact path="/admin/user">
-            <ManageUser />
-          </Route>
-          <Route exact path="/p/:articleId">
-            <div className="container">
-              <Article />
-            </div>
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-        <Footer />
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="App">
+          <Header />
+          <Switch>
+            <Route exact path="/edit/:articleId" component={EditArticle} />
+            <Route exact path="/new" component={NewArticle} />
+            <Route exact path="/admin/article" component={ManageArticle} />
+            <Route exact path="/admin/user" component={ManageUser} />
+            <Route exact path="/p/:articleId">
+              <div className="container">
+                <Article />
+              </div>
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+          <Footer />
+        </div>
+      </Suspense>
     </Router>
   );
 }

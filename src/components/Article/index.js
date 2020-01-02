@@ -6,6 +6,7 @@ import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
 
 import './style.css';
+import 'trix/dist/trix.css';
 
 export default function({ item }) {
   let [article, setArticle] = useState(item || {});
