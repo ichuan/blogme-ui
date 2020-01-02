@@ -38,6 +38,7 @@ export default function Header() {
                       className="navbar-item"
                       to="/new"
                       activeClassName="is-active"
+                      onClick={() => setMenuActive(false)}
                     >
                       发布
                     </NavLink>
@@ -48,6 +49,7 @@ export default function Header() {
                           className="navbar-item"
                           to="/admin/article"
                           activeClassName="is-active"
+                          onClick={() => setMenuActive(false)}
                         >
                           文章
                         </NavLink>
@@ -55,6 +57,7 @@ export default function Header() {
                           className="navbar-item"
                           to="/admin/user"
                           activeClassName="is-active"
+                          onClick={() => setMenuActive(false)}
                         >
                           用户
                         </NavLink>
