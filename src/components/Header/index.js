@@ -70,6 +70,7 @@ export default function Header() {
                         Api.logout();
                         globalActions.setUser(null);
                         history.push('/');
+                        setMenuActive(false);
                       }}
                     >
                       退出
