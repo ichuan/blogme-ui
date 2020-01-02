@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
 import Pager from '../Pager';
@@ -62,6 +63,9 @@ export default () => {
   }, [params, globalState.user]);
   return (
     <div className="container">
+      <Helmet>
+        <title>管理用户</title>
+      </Helmet>
       <div className="has-text-right">
         <button
           className="button is-info"

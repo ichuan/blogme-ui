@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Api from '../../utils/api';
 import Pager from '../Pager';
@@ -43,6 +44,9 @@ export default () => {
   }, [params, globalState.user]);
   return (
     <div className="container">
+      <Helmet>
+        <title>管理文章</title>
+      </Helmet>
       <div className="table-container">
         <table className="table is-hoverable is-fullwidth">
           <thead>

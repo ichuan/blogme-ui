@@ -15,7 +15,7 @@ export default () => {
   return (
     <div className="container">
       <Helmet>
-        <title>{`首页 - ${globalState.config['site.name']}`}</title>
+        <title>{`首页 - ${globalState.config['site.name'] || ''}`}</title>
       </Helmet>
       {articles.map(i => (
         <Article item={i} key={i.id} />

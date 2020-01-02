@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
 
@@ -24,6 +25,9 @@ export default () => {
 
   return (
     <div className="container">
+      <Helmet>
+        <title>网站配置</title>
+      </Helmet>
       <form>
         <div className="field">
           <label className="label">网站标题</label>

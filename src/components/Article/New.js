@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Editor from './Editor';
 import Api from '../../utils/api';
 
@@ -20,6 +21,9 @@ export default ({ item = {} }) => {
   const history = useHistory();
   return (
     <div className="container editor">
+      <Helmet>
+        <title>{`${item.id ? '编辑' : '发布'}文章`}</title>
+      </Helmet>
       {error && <div className="notification is-danger">{error}</div>}
       <form>
         <div className="has-text-right">
