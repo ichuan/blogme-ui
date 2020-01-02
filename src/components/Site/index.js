@@ -12,6 +12,15 @@ export default () => {
       globalActions.setConfig(globalState.config);
     });
   };
+  const uploadHeaderBg = e => {
+    const f = e.target.files[0];
+    return (
+      f &&
+      Api.upload('/articles/upload', f).then(r =>
+        saveConfig('site.header-bg', r.url)
+      )
+    );
+  };
 
   return (
     <div className="container">
@@ -44,6 +53,23 @@ export default () => {
               }
               onBlur={e => saveConfig('site.desc', siteDesc)}
             />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">顶部背景图</label>
+          <div className="control">
+            <label className="radio">
+              <input
+                type="radio"
+                name="header-bg"
+                onClick={e => saveConfig('site.header-bg', '')}
+              />{' '}
+              使用默认
+            </label>
+            <label className="radio">
+              <input type="radio" name="header-bg" /> 上传{' '}
+              <input type="file" onChange={uploadHeaderBg} />
+            </label>
           </div>
         </div>
       </form>

@@ -103,7 +103,7 @@ export default {
       xhr.open('POST', url, true);
       xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`);
       xhr.upload.addEventListener('progress', e => {
-        onProgress((e.loaded / e.total) * 100);
+        onProgress && onProgress((e.loaded / e.total) * 100);
       });
       xhr.addEventListener('load', e => {
         if (xhr.readyState === xhr.DONE) {

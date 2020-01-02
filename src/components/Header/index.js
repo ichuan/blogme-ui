@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
@@ -6,15 +6,24 @@ import LoginModal from './LoginModal';
 import VoidAnchar from '../../utils/anchor';
 
 import './style.css';
+import defaultHeaderBg from '../../assets/images/header-bg.jpg';
 
 export default () => {
   const [globalState, globalActions] = useGlobal();
   const [menuActive, setMenuActive] = useState(false);
   const [loginActive, setLoginActive] = useState(false);
   const history = useHistory();
+  useEffect(() => {}, [globalState.config]);
+  console.log(globalState.config['site.header-bg']);
 
   return (
-    <section className="hero header is-info is-medium">
+    <section
+      className="hero header is-info is-medium"
+      style={{
+        backgroundImage: `url(${globalState.config['site.header-bg'] ||
+          defaultHeaderBg})`,
+      }}
+    >
       <div className="hero-head">
         <nav className="navbar is-info">
           <div className="container">
