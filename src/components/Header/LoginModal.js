@@ -18,6 +18,11 @@ export default ({ isActive, onClose, onLoggedin }) => {
     setError('');
     onClose();
   };
+  const _onSubmit = () => {
+    submitLogin(username, password)
+      .then(onLoggedin)
+      .catch(setError);
+  };
   return (
     <div className={`modal login ${isActive ? 'is-active' : ''}`}>
       <div className="modal-background"></div>
@@ -43,6 +48,7 @@ export default ({ isActive, onClose, onLoggedin }) => {
                   className="input"
                   type="password"
                   onChange={e => setPassword(e.target.value)}
+                  onKeyPress={e => e.charCode === 13 && _onSubmit()}
                 />
               </div>
             </div>
@@ -51,11 +57,7 @@ export default ({ isActive, onClose, onLoggedin }) => {
                 <button
                   type="button"
                   className="button is-link"
-                  onClick={() =>
-                    submitLogin(username, password)
-                      .then(onLoggedin)
-                      .catch(setError)
-                  }
+                  onClick={_onSubmit}
                 >
                   登录
                 </button>
