@@ -27,12 +27,4 @@
   .hero.is-info .navbar-dropdown .navbar-item {
     color: #4a4a4a;
   }
-  /* fix safari
-   * Tracked on https://github.com/jgthms/bulma/issues/2597
-   * */
-  .hero.is-info
-    .navbar-dropdown
-    a.navbar-item:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current):not(:hover):not(.is-active) {
-    color: #4a4a4a;
-  }
 }
