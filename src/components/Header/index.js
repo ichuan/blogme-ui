@@ -61,6 +61,14 @@ export default () => {
                         >
                           用户
                         </NavLink>
+                        <NavLink
+                          className="navbar-item"
+                          to="/admin/site"
+                          activeClassName="is-active"
+                          onClick={() => setMenuActive(false)}
+                        >
+                          网站
+                        </NavLink>
                       </div>
                     </div>
 

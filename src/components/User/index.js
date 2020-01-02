@@ -61,7 +61,7 @@ export default () => {
     globalState.user && Api.get('/users', params).then(r => setUsers(r));
   }, [params, globalState.user]);
   return (
-    <div className="container admin">
+    <div className="container">
       <div className="has-text-right">
         <button
           className="button is-info"

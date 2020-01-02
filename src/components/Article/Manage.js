@@ -42,7 +42,7 @@ export default () => {
       Api.get('/articles/archive', params).then(r => setArticles(r));
   }, [params, globalState.user]);
   return (
-    <div className="container admin">
+    <div className="container">
       <div className="table-container">
         <table className="table is-hoverable is-fullwidth">
           <thead>
