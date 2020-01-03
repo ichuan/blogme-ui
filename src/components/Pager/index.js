@@ -8,7 +8,7 @@ const reloadWithScrollToTop = fn => {
 };
 
 export default ({ items, curParams, onClick, limit, idKey }) => {
-  limit = limit || curParams.limit || 10;
+  limit = parseInt(limit || curParams.limit || 10, 10);
   idKey = idKey || 'id';
   const reload = reloadWithScrollToTop(onClick);
   if (!items || (!items.length && !curParams.starting_after)) {

@@ -51,7 +51,7 @@ export default () => {
                 <Article />
               </div>
             </Route>
-            <Route path="/">
+            <Route exact path={['/_/:encodedParams', '/']}>
               <Home />
             </Route>
           </Switch>
