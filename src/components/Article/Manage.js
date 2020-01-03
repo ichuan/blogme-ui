@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Api from '../../utils/api';
+import Toast from '../../utils/toast';
 import Pager from '../Pager';
 import useGlobal from '../../utils/hooks';
 
@@ -68,7 +69,7 @@ export default () => {
                     .then(() => {
                       setArticles(articles.filter(j => j.id !== i.id));
                     })
-                    .catch(e => alert(e))
+                    .catch(Toast.error)
                 }
               />
             ))}

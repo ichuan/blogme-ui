@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Editor from './Editor';
 import Api from '../../utils/api';
+import Toast from '../../utils/toast';
 
 const saveArticle = (subject, content, existingId) => {
   if (!subject) {
@@ -17,14 +18,12 @@ const saveArticle = (subject, content, existingId) => {
 export default ({ item = {} }) => {
   const [subject, setSubject] = useState(item.subject || '');
   const [content, setContent] = useState(item.content || '');
-  const [error, setError] = useState('');
   const history = useHistory();
   return (
     <div className="container editor">
       <Helmet>
         <title>{`${item.id ? '编辑' : '发布'}文章`}</title>
       </Helmet>
-      {error && <div className="notification is-danger">{error}</div>}
       <form>
         <div className="has-text-right">
           <button
@@ -32,8 +31,11 @@ export default ({ item = {} }) => {
             className="button is-info"
             onClick={() => {
               saveArticle(subject, content, item.id)
-                .then(r => history.push(`/p/${r.id || item.id}`))
-                .catch(setError);
+                .then(r => {
+                  Toast.success('保存成功');
+                  history.push(`/p/${r.id || item.id}`);
+                })
+                .catch(Toast.error);
             }}
           >
             {item.id ? '保存' : '发布'}

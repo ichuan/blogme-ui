@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
+import Toast from '../../utils/toast';
 import Pager from '../Pager';
 import EditModal from './EditModal';
 
@@ -100,7 +101,7 @@ export default () => {
                     .then(() => {
                       setUsers(users.filter(j => j.id !== i.id));
                     })
-                    .catch(e => alert(e))
+                    .catch(Toast.error)
                 }
                 onEdit={() => {
                   setEditingUser(i);
@@ -118,7 +119,7 @@ export default () => {
         onSave={u => {
           upsertUser(u)
             .then(() => setModalActive(false))
-            .catch(e => alert(e));
+            .catch(Toast.error);
         }}
         user={editingUser}
       />

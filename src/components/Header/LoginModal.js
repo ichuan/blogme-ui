@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Api from '../../utils/api';
+import Toast from '../../utils/toast';
 
 const submitLogin = (username, password) => {
   if (username && password) {
@@ -13,16 +14,14 @@ const submitLogin = (username, password) => {
 export default ({ isActive, onClose, onLoggedin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const elInput = useRef(null);
-  const _onClose = () => {
-    setError('');
-    onClose();
-  };
   const _onSubmit = () => {
     submitLogin(username, password)
-      .then(onLoggedin)
-      .catch(setError);
+      .then(e => {
+        Toast.success('登录成功');
+        onLoggedin(e);
+      })
+      .catch(Toast.error);
   };
   useEffect(() => {
     if (isActive && elInput.current) {
@@ -35,7 +34,6 @@ export default ({ isActive, onClose, onLoggedin }) => {
       <div className="modal-content">
         <div className="box">
           <h1 className="title has-text-centered">登录</h1>
-          {error && <div className="notification is-danger">{error}</div>}
           <form>
             <div className="field">
               <label className="label">用户名</label>
@@ -73,7 +71,7 @@ export default ({ isActive, onClose, onLoggedin }) => {
                 <button
                   type="button"
                   className="button is-link is-light"
-                  onClick={_onClose}
+                  onClick={onClose}
                 >
                   取消
                 </button>
@@ -85,7 +83,7 @@ export default ({ isActive, onClose, onLoggedin }) => {
       <button
         type="button"
         className="modal-close is-large"
-        onClick={_onClose}
+        onClick={onClose}
       ></button>
     </div>
   );
