@@ -12,7 +12,8 @@ const NewArticle = lazy(() => import('../Article/New')),
   EditArticle = lazy(() => import('../Article/Edit')),
   ManageArticle = lazy(() => import('../Article/Manage')),
   ManageUser = lazy(() => import('../User')),
-  ManageSite = lazy(() => import('../Site'));
+  ManageSite = lazy(() => import('../Site')),
+  Archive = lazy(() => import('../Archive'));
 
 export default () => {
   const [globalState, globalActions] = useGlobal();
@@ -44,6 +45,7 @@ export default () => {
             <Route exact path="/admin/article" component={ManageArticle} />
             <Route exact path="/admin/user" component={ManageUser} />
             <Route exact path="/admin/site" component={ManageSite} />
+            <Route exact path="/archive" component={Archive} />
             <Route exact path="/p/:articleId">
               <div className="container">
                 <Article />
