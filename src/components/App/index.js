@@ -28,9 +28,16 @@ export default () => {
   }, [globalActions]);
   return (
     <Router>
-      <Suspense fallback={<div>Loading...</div>}>
-        <div className="App">
-          <Header />
+      <div className="App">
+        <Header />
+        <Suspense
+          fallback={
+            <progress
+              className="progress is-small is-primary"
+              max="100"
+            ></progress>
+          }
+        >
           <Switch>
             <Route exact path="/edit/:articleId" component={EditArticle} />
             <Route exact path="/new" component={NewArticle} />
@@ -46,9 +53,9 @@ export default () => {
               <Home />
             </Route>
           </Switch>
-          <Footer />
-        </div>
-      </Suspense>
+        </Suspense>
+        <Footer />
+      </div>
     </Router>
   );
 };
