@@ -42,7 +42,7 @@ export default ({ item }) => {
       <ul className="meta">
         <li title={article.username}>
           <Octicon icon={Person} />
-          {article.display_name}
+          {article.display_name || article.username}
         </li>
         <li title={article.created_at}>
           <Octicon icon={Clock} />
