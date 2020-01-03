@@ -1,5 +1,8 @@
 .header {
-  background: url(../../assets/images/header-bg.jpg) no-repeat center center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)),
+    url(../../assets/images/header-bg.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
   background-size: cover;
 }
 
@@ -13,6 +16,10 @@
   font-size: 1.1rem;
   line-height: 1.4;
   color: #fff;
+}
+.header .title,
+.header .subtitle {
+  text-shadow: 0 0 #fff;
 }
 
 .header .title a {
