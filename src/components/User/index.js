@@ -21,15 +21,14 @@ const upsertUser = user => {
 const Row = ({ item, onDelete, onEdit }) => {
   return (
     <tr>
-      <td>{item.id}</td>
       <td>
         <strong>{item.username}</strong>
       </td>
       <td>{item.display_name}</td>
       <td>{item.email || '-'}</td>
       <td>{item.is_superuser ? '是' : ''}</td>
-      <td>{item.last_login || '-'}</td>
-      <td>{item.date_joined}</td>
+      <td>{(item.last_login || '').split('T')[0]}</td>
+      <td>{(item.date_joined || '').split('T')[0]}</td>
       <td>
         <div className="buttons are-small">
           <button
@@ -81,7 +80,6 @@ export default () => {
         <table className="table is-hoverable is-fullwidth">
           <thead>
             <tr>
-              <th>ID</th>
               <th>用户名</th>
               <th>昵称</th>
               <th>邮箱</th>
