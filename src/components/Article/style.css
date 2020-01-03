@@ -66,3 +66,6 @@ trix-editor.content {
 .content.trix-content h1 {
   margin-bottom: 0.4em;
 }
+.content.trix-content figure:not(:first-child) {
+  margin-top: inherit;
+}

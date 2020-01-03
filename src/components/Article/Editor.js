@@ -16,8 +16,10 @@ export default ({ value, onChange }) => {
           e.attachment.setAttributes({
             url: ret.url,
             href: ret.url,
-            // 图片不显示文件大小
-            ...(/(jpe?g|png|gif)$/i.test(ret.url) ? { filesize: null } : {}),
+            // 图片不显示文件大小和文件名
+            ...(/(jpe?g|png|gif)$/i.test(ret.url)
+              ? { filesize: null, filename: null }
+              : {}),
           });
         });
       }
