@@ -14,14 +14,17 @@ const submitLogin = (username, password) => {
 export default ({ isActive, onClose, onLoggedin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [ing, setIng] = useState(false);
   const elInput = useRef(null);
   const _onSubmit = () => {
+    setIng(true);
     submitLogin(username, password)
       .then(e => {
         Toast.success('登录成功');
         onLoggedin(e);
       })
-      .catch(Toast.error);
+      .catch(Toast.error)
+      .finally(e => setIng(false));
   };
   useEffect(() => {
     if (isActive && elInput.current) {
@@ -61,7 +64,7 @@ export default ({ isActive, onClose, onLoggedin }) => {
               <div className="control">
                 <button
                   type="button"
-                  className="button is-link"
+                  className={`button is-link ${ing ? 'is-loading' : ''}`}
                   onClick={_onSubmit}
                 >
                   登录
