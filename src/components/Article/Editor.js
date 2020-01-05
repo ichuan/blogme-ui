@@ -1,12 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import Api from '../../utils/api';
 
 import 'trix';
 import 'trix/dist/trix.css';
 
 export default ({ value, onChange }) => {
-  const id = `input-${+new Date()}`,
-    elInput = useRef(null);
+  const id = `input-${+new Date()}`;
   useEffect(() => {
     const uploadFile = e => {
       if (e.attachment.file) {
@@ -30,24 +29,15 @@ export default ({ value, onChange }) => {
     };
   }, []);
   useEffect(() => {
-    let content = null;
-    const handle = setInterval(() => {
-      if (elInput) {
-        let value = elInput.current.value,
-          isFirstTime = content === null;
-        if (!isFirstTime && content !== value) {
-          onChange(value);
-        }
-        content = value;
-      }
-    }, 500);
+    const fn = e => onChange(e.target.value);
+    window.addEventListener('trix-change', fn);
     return () => {
-      clearInterval(handle);
+      window.removeEventListener('trix-change', fn);
     };
   }, [onChange]);
   return (
     <div>
-      <input id={id} ref={elInput} type="hidden" name="content" value={value} />
+      <input id={id} type="hidden" name="content" value={value} />
       <trix-editor input={id} class="content trix-content"></trix-editor>
     </div>
   );
