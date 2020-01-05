@@ -28,11 +28,7 @@ export default () => {
       <Helmet>
         <title>{`首页 - ${globalState.config['site.name'] || ''}`}</title>
       </Helmet>
-      {ing ? (
-        <Loader size={6} />
-      ) : (
-        articles.map(i => <Article item={i} key={i.id} />)
-      )}
+      {ing ? <Loader /> : articles.map(i => <Article item={i} key={i.id} />)}
       <Pager
         items={articles}
         curParams={params}

@@ -10,7 +10,7 @@ const loaderStyles = {
   display: 'block',
 };
 
-export default ({ size = '1' }) => {
+export default ({ size = 6 }) => {
   return (
     <div
       style={{

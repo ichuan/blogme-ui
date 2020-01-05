@@ -4,12 +4,14 @@ import { Helmet } from 'react-helmet';
 import Octicon, { Clock, Person, Pencil } from '@primer/octicons-react';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
+import Loader from '../../utils/loader';
 
 import './style.css';
 import 'trix/dist/trix.css';
 
 export default ({ item }) => {
   let [article, setArticle] = useState(item || {});
+  let [ready, setReady] = useState(item || false);
   const globalState = useGlobal()[0];
   let standaloneMode = false;
   let createdAt = article.created_at ? article.created_at.split('T')[0] : '-';
@@ -18,7 +20,9 @@ export default ({ item }) => {
     standaloneMode = true;
     const { articleId } = useParams();
     useEffect(() => {
-      Api.get(`/articles/${articleId}`).then(r => setArticle(r));
+      Api.get(`/articles/${articleId}`)
+        .then(r => setArticle(r))
+        .finally(e => setReady(true));
     }, [articleId]);
   }
   return (
@@ -28,6 +32,7 @@ export default ({ item }) => {
           <title>{`${article.subject} - ${globalState.config['site.name']}`}</title>
         </Helmet>
       )}
+      {!ready && <Loader />}
       <h1 className="title">
         {standaloneMode ? (
           article.subject

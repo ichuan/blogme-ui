@@ -35,7 +35,7 @@ export default () => {
         <Suspense
           fallback={
             <div className="container">
-              <Loader size={6} />
+              <Loader />
             </div>
           }
         >
