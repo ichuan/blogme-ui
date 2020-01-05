@@ -6,6 +6,7 @@ import Home from '../Home';
 import Article from '../Article';
 import Api from '../../utils/api';
 import useGlobal from '../../utils/hooks';
+import Loader from '../../utils/loader';
 import './style.css';
 
 const NewArticle = lazy(() => import('../Article/New')),
@@ -33,10 +34,9 @@ export default () => {
         <Header />
         <Suspense
           fallback={
-            <progress
-              className="progress is-small is-primary"
-              max="100"
-            ></progress>
+            <div className="container">
+              <Loader size={6} />
+            </div>
           }
         >
           <Switch>
