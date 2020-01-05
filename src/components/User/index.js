@@ -5,6 +5,7 @@ import Api from '../../utils/api';
 import Toast from '../../utils/toast';
 import Pager from '../Pager';
 import EditModal from './EditModal';
+import Loader from '../../utils/loader';
 
 const deleteUser = id => {
   return Api.delete(`/users/${id}`);
@@ -57,9 +58,15 @@ export default () => {
   const [params, setParams] = useState({ limit: 20 });
   const [modalActive, setModalActive] = useState(false);
   const [editingUser, setEditingUser] = useState();
+  const [ing, setIng] = useState(false);
   const globalState = useGlobal()[0];
   useEffect(() => {
-    globalState.user && Api.get('/users', params).then(r => setUsers(r));
+    if (globalState.user) {
+      setIng(true);
+      Api.get('/users', params)
+        .then(r => setUsers(r))
+        .finally(e => setIng(false));
+    }
   }, [params, globalState.user]);
   return (
     <div className="container">
@@ -77,6 +84,7 @@ export default () => {
           添加
         </button>
       </div>
+      {ing && <Loader />}
       <div className="table-container">
         <table className="table is-hoverable is-fullwidth">
           <thead>

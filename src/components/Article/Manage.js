@@ -5,6 +5,7 @@ import Api from '../../utils/api';
 import Toast from '../../utils/toast';
 import Pager from '../Pager';
 import useGlobal from '../../utils/hooks';
+import Loader from '../../utils/loader';
 
 const deleteArticle = id => {
   return Api.delete(`/articles/${id}`);
@@ -38,16 +39,22 @@ const Row = ({ item, onDelete }) => {
 export default () => {
   const [articles, setArticles] = useState([]);
   const [params, setParams] = useState({ limit: 20 });
+  const [ing, setIng] = useState(false);
   const globalState = useGlobal()[0];
   useEffect(() => {
-    globalState.user &&
-      Api.get('/articles/archive', params).then(r => setArticles(r));
+    if (globalState.user) {
+      setIng(true);
+      Api.get('/articles/archive', params)
+        .then(r => setArticles(r))
+        .finally(e => setIng(false));
+    }
   }, [params, globalState.user]);
   return (
     <div className="container">
       <Helmet>
         <title>管理文章</title>
       </Helmet>
+      {ing && <Loader />}
       <div className="table-container">
         <table className="table is-hoverable is-fullwidth">
           <thead>
