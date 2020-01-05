@@ -18,6 +18,7 @@ const saveArticle = (subject, content, existingId) => {
 export default ({ item = {} }) => {
   const [subject, setSubject] = useState(item.subject || '');
   const [content, setContent] = useState(item.content || '');
+  let [ing, setIng] = useState(false);
   const history = useHistory();
   return (
     <div className="container editor">
@@ -28,14 +29,16 @@ export default ({ item = {} }) => {
         <div className="has-text-right">
           <button
             type="button"
-            className="button is-info"
+            className={`button is-info ${ing ? 'is-loading' : ''}`}
             onClick={() => {
+              setIng(true);
               saveArticle(subject, content, item.id)
                 .then(r => {
                   Toast.success('保存成功');
                   history.push(`/p/${r.id || item.id}`);
                 })
-                .catch(Toast.error);
+                .catch(Toast.error)
+                .finally(e => setIng(false));
             }}
           >
             {item.id ? '保存' : '发布'}
