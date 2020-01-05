@@ -38,7 +38,7 @@ export default ({ value, onChange }) => {
   return (
     <div>
       <input id={id} type="hidden" name="content" value={value} />
-      <trix-editor input={id} class="content trix-content"></trix-editor>
+      <trix-editor input={id} class="content is-trix"></trix-editor>
     </div>
   );
 };

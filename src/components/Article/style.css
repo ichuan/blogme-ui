@@ -1,3 +1,15 @@
+.article {
+  padding-top: 2em;
+  margin-top: 2em;
+  border-top: solid 1px #ddd;
+}
+
+.article:first-child {
+  padding-top: 0;
+  margin-top: 0;
+  border-top: none;
+}
+
 .article > .title {
   font-size: 32px;
   color: #333332;
@@ -14,17 +26,11 @@
   }
 }
 
-.article + .article {
-  padding-top: 2em;
-  border-top: solid 1px #ddd;
-}
-
 .article > .meta {
   color: #b3b3b1;
   font-size: 14px;
   font-weight: 400;
-  margin-top: -1em;
-  margin-bottom: 2em;
+  margin-bottom: 1.5rem;
 }
 .article > .meta a {
   color: #b3b3b1;
@@ -63,9 +69,35 @@ trix-editor.content {
   display: none !important;
 }
 
-.content.trix-content h1 {
-  margin-bottom: 0.4em;
+.content.is-trix .attachment {
+  margin: 0.5em auto;
+  position: relative;
+  max-width: 100%;
 }
-.content.trix-content .attachment--preview {
-  margin: 0.2em 0;
+.content.is-trix .attachment a {
+  color: inherit;
+  text-decoration: none;
+}
+.content.is-trix .attachment--file {
+  display: inline-block;
+  color: #333;
+  line-height: 1;
+  padding: 0.4em 1em;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+}
+.content.is-trix .attachment__caption {
+  padding: 0;
+  text-align: center;
+}
+.content.is-trix
+  .attachment__caption
+  .attachment__name
+  + .attachment__size::before {
+  content: ' · ';
+}
+.content.is-trix .attachment--preview .attachment__caption {
+  color: #666;
+  font-size: 0.9em;
+  line-height: 1.2;
 }

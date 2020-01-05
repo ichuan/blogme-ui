@@ -40,10 +40,6 @@ export default ({ item }) => {
           <Link to={`/p/${article.id}`}>{article.subject}</Link>
         )}
       </h1>
-      <div
-        className="content trix-content"
-        dangerouslySetInnerHTML={{ __html: article.content || '' }}
-      ></div>
       <ul className="meta">
         <li title={article.username}>
           <Octicon icon={Person} />
@@ -64,6 +60,10 @@ export default ({ item }) => {
             </li>
           )}
       </ul>
+      <div
+        className="content is-trix"
+        dangerouslySetInnerHTML={{ __html: article.content || '' }}
+      ></div>
     </div>
   );
 };
