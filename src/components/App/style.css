@@ -13,6 +13,10 @@
   padding: 2em 0;
 }
 
+.footer .container {
+  padding: 0 2em;
+}
+
 .pagination {
   margin: 2em auto;
 }
