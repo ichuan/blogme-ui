@@ -26,7 +26,7 @@ export default () => {
   return (
     <div className="container">
       <Helmet>
-        <title>{`首页 - ${globalState.config['site.name'] || ''}`}</title>
+        <title>{globalState.config['site.name'] || ''}</title>
       </Helmet>
       {ing ? <Loader /> : articles.map(i => <Article item={i} key={i.id} />)}
       <Pager
