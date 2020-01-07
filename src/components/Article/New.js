@@ -1,9 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Editor from './Editor';
 import Api from '../../utils/api';
 import Toast from '../../utils/toast';
+
+const Draft = {
+  _key: 'bm.draft',
+  get() {
+    const value = window.localStorage.getItem(this._key);
+    return value ? JSON.parse(value) : '';
+  },
+  set(data) {
+    return window.localStorage.setItem(this._key, JSON.stringify(data));
+  },
+  remove() {
+    return window.localStorage.removeItem(this._key);
+  },
+};
 
 const saveArticle = (subject, content, existingId) => {
   if (!subject) {
@@ -18,8 +32,26 @@ const saveArticle = (subject, content, existingId) => {
 export default ({ item = {} }) => {
   const [subject, setSubject] = useState(item.subject || '');
   const [content, setContent] = useState(item.content || '');
+  const elEditor = useRef(null);
   let [ing, setIng] = useState(false);
   const history = useHistory();
+  useEffect(() => {
+    const _draft = Draft.get();
+    if (!item.id && _draft) {
+      if (window.confirm('发现有之前未保存的草稿，是否恢复？')) {
+        setSubject(_draft.subject);
+        setContent(_draft.content);
+        elEditor.current.editor.loadJSON(_draft.state);
+      } else {
+        Draft.remove();
+      }
+    }
+  }, [item.id]);
+  useEffect(() => {
+    if (!item.id && subject && content) {
+      Draft.set({ subject, content, state: elEditor.current.editor });
+    }
+  }, [item.id, subject, content]);
   return (
     <div className="container editor">
       <Helmet>
@@ -35,6 +67,7 @@ export default ({ item = {} }) => {
               saveArticle(subject, content, item.id)
                 .then(r => {
                   Toast.success('保存成功');
+                  Draft.remove();
                   history.push(`/p/${r.id || item.id}`);
                 })
                 .catch(Toast.error)
@@ -58,7 +91,7 @@ export default ({ item = {} }) => {
         <div className="field">
           <label className="label">正文</label>
           <div className="control">
-            <Editor value={content} onChange={setContent} />
+            <Editor ref={elEditor} value={content} onChange={setContent} />
           </div>
         </div>
       </form>

@@ -4,7 +4,7 @@ import Api from '../../utils/api';
 import 'trix';
 import 'trix/dist/trix.css';
 
-export default ({ value, onChange }) => {
+export default React.forwardRef(({ value, onChange }, ref) => {
   const id = `input-${+new Date()}`;
   useEffect(() => {
     const uploadFile = e => {
@@ -38,7 +38,7 @@ export default ({ value, onChange }) => {
   return (
     <div>
       <input id={id} type="hidden" name="content" value={value} />
-      <trix-editor input={id} class="content is-trix"></trix-editor>
+      <trix-editor ref={ref} input={id} class="content is-trix"></trix-editor>
     </div>
   );
-};
+});
