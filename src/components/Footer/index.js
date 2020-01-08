@@ -21,7 +21,7 @@ export default () => {
                 文章索引
               </Link>{' '}
               ·{' '}
-              <a href="/feed" target="_blank" className="has-text-grey-dark">
+              <a href="/feed/" target="_blank" className="has-text-grey-dark">
                 RSS
               </a>
             </p>
