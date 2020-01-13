@@ -13,16 +13,20 @@ export default () => {
   const [articles, setArticles] = useState([]);
   const [ing, setIng] = useState(false);
   const { encodedParams } = useParams();
-  let params = {};
-  try {
-    params = JSON.parse(window.atob(encodedParams));
-  } catch (e) {}
+  const [params, setParams] = useState({});
   useEffect(() => {
+    let _params = {};
+    if (encodedParams) {
+      try {
+        _params = JSON.parse(window.atob(encodedParams));
+      } catch (e) {}
+    }
     setIng(true);
-    Api.get('/articles', params)
+    setParams(_params);
+    Api.get('/articles', _params)
       .then(r => setArticles(r))
       .finally(e => setIng(false));
-  }, [params.starting_after, params.ending_before, params.limit]);
+  }, [encodedParams]);
   return (
     <div className="container">
       <Helmet>
