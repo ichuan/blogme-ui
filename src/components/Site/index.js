@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
+import Favicon from '../../utils/favicon';
 
 export default () => {
   const [globalState, globalActions] = useGlobal();
   const [siteName, setSiteName] = useState();
   const [siteDesc, setSiteDesc] = useState();
+  const [siteFavText, setSiteFavText] = useState();
   const [ing, setIng] = useState({});
   useEffect(() => {
     setSiteName(globalState.config['site.name']);
     setSiteDesc(globalState.config['site.desc']);
+    Favicon.setWithDomainDefault(globalState.config['site.favtext']);
   }, [globalState.config]);
   const saveConfig = (key, value) => {
     setIng({ ...ing, [key]: true });
@@ -65,6 +68,21 @@ export default () => {
                 e.keyCode === 13 && saveConfig('site.desc', siteDesc)
               }
               onBlur={e => saveConfig('site.desc', siteDesc)}
+            />
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">网站 favicon 文字（一个字）</label>
+          <div className={`control ${ing['site.favtext'] ? 'is-loading' : ''}`}>
+            <input
+              className="input"
+              type="text"
+              value={siteFavText || ''}
+              onChange={e => setSiteFavText(e.target.value)}
+              onKeyDown={e =>
+                e.keyCode === 13 && saveConfig('site.favtext', siteFavText)
+              }
+              onBlur={e => saveConfig('site.favtext', siteFavText)}
             />
           </div>
         </div>

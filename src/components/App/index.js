@@ -8,6 +8,7 @@ import Api from '../../utils/api';
 import Toast from '../../utils/toast';
 import useGlobal from '../../utils/hooks';
 import Loader from '../../utils/loader';
+import Favicon from '../../utils/favicon';
 import './style.css';
 
 const NewArticle = lazy(() => import('../Article/New')),
@@ -21,7 +22,10 @@ export default () => {
   const [globalState, globalActions] = useGlobal();
   // one off get site name
   useEffect(() => {
-    Api.get('/config').then(r => globalActions.setConfig(r));
+    Api.get('/config').then(r => {
+      globalActions.setConfig(r);
+      Favicon.setWithDomainDefault(r['site.favtext']);
+    });
   }, [globalActions]);
   // clear token on expired
   useEffect(() => {
