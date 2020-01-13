@@ -18,9 +18,7 @@ export default {
     ctx.fillRect(0, 0, size, size);
 
     ctx.fillStyle = '#fff';
-    ctx.font = `bold ${Math.floor(
-      size * textPercent
-    )}px/${size}px monospace, sans-serif`;
+    ctx.font = `bold ${Math.floor(size * textPercent)}px/${size}px sans-serif`;
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     ctx.fillText(char, size / 2, size / 2, size);

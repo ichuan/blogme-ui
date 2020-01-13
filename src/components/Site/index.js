@@ -13,6 +13,7 @@ export default () => {
   useEffect(() => {
     setSiteName(globalState.config['site.name']);
     setSiteDesc(globalState.config['site.desc']);
+    setSiteFavText(globalState.config['site.favtext']);
     Favicon.setWithDomainDefault(globalState.config['site.favtext']);
   }, [globalState.config]);
   const saveConfig = (key, value) => {
