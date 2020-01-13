@@ -91,7 +91,13 @@ export default ({ item = {} }) => {
         <div className="field">
           <label className="label">正文</label>
           <div className="control">
-            <Editor ref={elEditor} value={content} onChange={setContent} />
+            <Editor
+              ref={elEditor}
+              value={content}
+              onChange={setContent}
+              onUploadStart={() => setIng(true)}
+              onUploadEnd={() => setIng(false)}
+            />
           </div>
         </div>
       </form>
