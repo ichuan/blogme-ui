@@ -1,21 +1,14 @@
 import fetch from 'unfetch';
 
-let accessToken = window.localStorage.getItem('token');
-let apiBase = window._API_BASE,
+let accessToken = '',
+  apiBase = window._API_BASE,
   apiRoot = /https?:\/\/[^/]+/i.exec(apiBase)[0];
-
-const saveToken = token => {
-  accessToken = token;
-  window.localStorage.setItem('token', token);
-};
 
 const headers = () => {
   return accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
 };
 
-const statusCallbacks = {
-  401: [() => saveToken('')],
-};
+const statusCallbacks = {};
 
 export default {
   onStatus(status, callback, uniqueId) {
@@ -84,14 +77,10 @@ export default {
     data.append('password', password);
     return this.post(endpoint, data).then(r => {
       if (r && r.access_token) {
-        saveToken(r.access_token);
+        return r.access_token;
       }
       return r;
     });
-  },
-
-  logout() {
-    saveToken('');
   },
 
   upload(endpoint, file, onProgress) {
@@ -121,7 +110,12 @@ export default {
     });
   },
 
-  hasToken() {
-    return accessToken;
+  loadTokenFromCache() {
+    return window.localStorage.getItem('token');
+  },
+
+  saveTokenToCache(token) {
+    accessToken = token;
+    return window.localStorage.setItem('token', token);
   },
 };

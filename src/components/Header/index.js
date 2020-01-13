@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import useGlobal from '../../utils/hooks';
-import Api from '../../utils/api';
 import Toast from '../../utils/toast';
 import LoginModal from './LoginModal';
 import VoidAnchar from '../../utils/anchor';
@@ -85,8 +84,7 @@ export default () => {
                     <VoidAnchar
                       className="navbar-item"
                       onClick={() => {
-                        Api.logout();
-                        globalActions.setUser(null);
+                        globalActions.setAccessToken('');
                         history.push('/');
                         Toast.success('已退出登录');
                         setMenuActive(false);
@@ -122,9 +120,9 @@ export default () => {
       <LoginModal
         isActive={loginActive}
         onClose={() => setLoginActive(false)}
-        onLoggedin={user => {
+        onLoggedin={token => {
           setLoginActive(false);
-          globalActions.setUser(user);
+          globalActions.setAccessToken(token);
         }}
       />
     </section>

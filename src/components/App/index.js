@@ -5,6 +5,7 @@ import Footer from '../Footer';
 import Home from '../Home';
 import Article from '../Article';
 import Api from '../../utils/api';
+import Toast from '../../utils/toast';
 import useGlobal from '../../utils/hooks';
 import Loader from '../../utils/loader';
 import './style.css';
@@ -18,16 +19,29 @@ const NewArticle = lazy(() => import('../Article/New')),
 
 export default () => {
   const [globalState, globalActions] = useGlobal();
+  // one off get site name
   useEffect(() => {
     Api.get('/config').then(r => globalActions.setConfig(r));
-    if (Api.hasToken() && !globalState.user) {
-      Api.post('/users/test-token').then(r => {
-        if (r.username) {
-          globalActions.setUser(r);
-        }
-      });
-    }
   }, [globalActions]);
+  // clear token on expired
+  useEffect(() => {
+    Api.onStatus(401, () => globalActions.setAccessToken(''));
+  }, [globalActions]);
+  // login/logout
+  useEffect(() => {
+    Api.saveTokenToCache(globalState.accessToken);
+    if (globalState.accessToken) {
+      Api.post('/users/test-token')
+        .then(r => {
+          if (r.username) {
+            globalActions.setUser(r);
+          }
+        })
+        .catch(Toast.error);
+    } else {
+      globalActions.setUser(null);
+    }
+  }, [globalActions, globalState.accessToken]);
   return (
     <Router>
       <div className="App">

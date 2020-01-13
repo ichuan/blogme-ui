@@ -4,9 +4,7 @@ import Toast from '../../utils/toast';
 
 const submitLogin = (username, password) => {
   if (username && password) {
-    return Api.login('/users/access-token', username, password).then(r => {
-      return Api.post('/users/test-token');
-    });
+    return Api.login('/users/access-token', username, password);
   }
   return Promise.reject('请填写完整');
 };
@@ -19,9 +17,9 @@ export default ({ isActive, onClose, onLoggedin }) => {
   const _onSubmit = () => {
     setIng(true);
     submitLogin(username, password)
-      .then(e => {
+      .then(token => {
         Toast.success('登录成功');
-        onLoggedin(e);
+        onLoggedin(token);
       })
       .catch(Toast.error)
       .finally(e => setIng(false));

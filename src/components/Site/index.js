@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
 
 export default () => {
   const [globalState, globalActions] = useGlobal();
-  const [siteName, setSiteName] = useState(globalState.config['site.name']);
-  const [siteDesc, setSiteDesc] = useState(globalState.config['site.desc']);
+  const [siteName, setSiteName] = useState();
+  const [siteDesc, setSiteDesc] = useState();
+  const [ing, setIng] = useState({});
+  useEffect(() => {
+    setSiteName(globalState.config['site.name']);
+    setSiteDesc(globalState.config['site.desc']);
+  }, [globalState.config]);
   const saveConfig = (key, value) => {
-    return Api.put('/config', { key, value }).then(r => {
-      globalState.config[key] = value;
-      globalActions.setConfig(globalState.config);
-    });
+    setIng({ ...ing, [key]: true });
+    return Api.put('/config', { key, value: value || '' })
+      .then(r => {
+        globalActions.setConfig({ ...globalState.config, [key]: value });
+      })
+      .finally(e => {
+        setIng({ ...ing, [key]: false });
+      });
   };
   const uploadHeaderBg = e => {
     const f = e.target.files[0];
@@ -31,11 +40,11 @@ export default () => {
       <form>
         <div className="field">
           <label className="label">网站标题</label>
-          <div className="control">
+          <div className={`control ${ing['site.name'] ? 'is-loading' : ''}`}>
             <input
               className="input"
               type="text"
-              value={siteName}
+              value={siteName || ''}
               onChange={e => setSiteName(e.target.value)}
               onKeyDown={e =>
                 e.keyCode === 13 && saveConfig('site.name', siteName)
@@ -46,11 +55,11 @@ export default () => {
         </div>
         <div className="field">
           <label className="label">网站介绍</label>
-          <div className="control">
+          <div className={`control ${ing['site.desc'] ? 'is-loading' : ''}`}>
             <input
               className="input"
               type="text"
-              value={siteDesc}
+              value={siteDesc || ''}
               onChange={e => setSiteDesc(e.target.value)}
               onKeyDown={e =>
                 e.keyCode === 13 && saveConfig('site.desc', siteDesc)
@@ -61,7 +70,9 @@ export default () => {
         </div>
         <div className="field">
           <label className="label">顶部背景图</label>
-          <div className="control">
+          <div
+            className={`control ${ing['site.header-bg'] ? 'is-loading' : ''}`}
+          >
             <label className="radio">
               <input
                 type="radio"
