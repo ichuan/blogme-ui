@@ -6,7 +6,7 @@ export default {
       return;
     }
     previousCache.text = char;
-    const size = 200,
+    const size = 256,
       textPercent = 0.75,
       elCanvas = document.createElement('canvas'),
       ctx = elCanvas.getContext('2d');
@@ -18,7 +18,9 @@ export default {
     ctx.fillRect(0, 0, size, size);
 
     ctx.fillStyle = '#fff';
-    ctx.font = `bold ${Math.floor(size * textPercent)}px monospace`;
+    ctx.font = `bold ${Math.floor(
+      size * textPercent
+    )}px/${size}px monospace, sans-serif`;
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
     ctx.fillText(char, size / 2, size / 2, size);
@@ -35,7 +37,7 @@ export default {
   },
 
   setWithDomainDefault(char) {
-    const first = char ? char[0] : window.location.hostname[0];
+    const first = char ? char[0] : window.location.hostname[0].toUpperCase();
     return this.setText(first);
   },
 };
