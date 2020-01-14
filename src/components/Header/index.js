@@ -84,10 +84,10 @@ export default () => {
                     <VoidAnchar
                       className="navbar-item"
                       onClick={() => {
-                        globalActions.setAccessToken('');
-                        history.push('/');
-                        Toast.success('已退出登录');
                         setMenuActive(false);
+                        globalActions.setAccessToken('');
+                        Toast.success('已退出登录');
+                        history.push('/');
                       }}
                     >
                       退出

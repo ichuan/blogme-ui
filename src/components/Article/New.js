@@ -70,8 +70,10 @@ export default ({ item = {} }) => {
                   Draft.remove();
                   history.push(`/p/${r.id || item.id}`);
                 })
-                .catch(Toast.error)
-                .finally(e => setIng(false));
+                .catch(e => {
+                  setIng(false);
+                  Toast.error(e);
+                });
             }}
           >
             {item.id ? '保存' : '发布'}
