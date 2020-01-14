@@ -5,9 +5,25 @@ import Octicon, { Clock, Person, Pencil } from '@primer/octicons-react';
 import useGlobal from '../../utils/hooks';
 import Api from '../../utils/api';
 import Loader from '../../utils/loader';
+import Highlight from '../../utils/highlight';
 
 import './style.css';
 import 'trix/dist/trix.css';
+
+const highlight = content => {
+  return content.replace(/<pre>([\s\S]+?)<\/pre>/gm, (whole, code) => {
+    const decoded = code
+      .replace(/<br>/g, '\n')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>');
+    try {
+      return `<pre class="hljs">${Highlight.auto(decoded)}</pre>`;
+    } catch (e) {
+      return whole;
+    }
+  });
+};
 
 export default ({ item }) => {
   let [article, setArticle] = useState(item || {});
@@ -62,7 +78,9 @@ export default ({ item }) => {
       </ul>
       <div
         className="content is-trix"
-        dangerouslySetInnerHTML={{ __html: article.content || '' }}
+        dangerouslySetInnerHTML={{
+          __html: highlight(article.content || ''),
+        }}
       ></div>
     </div>
   );
