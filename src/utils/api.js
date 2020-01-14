@@ -111,11 +111,11 @@ export default {
   },
 
   loadTokenFromCache() {
-    return window.localStorage.getItem('token');
+    return window.localStorage.getItem('token') || '';
   },
 
   saveTokenToCache(token) {
-    accessToken = token;
-    return window.localStorage.setItem('token', token);
+    accessToken = token || '';
+    return window.localStorage.setItem('token', accessToken);
   },
 };
