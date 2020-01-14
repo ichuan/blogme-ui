@@ -13,6 +13,7 @@ import 'trix/dist/trix.css';
 const highlight = content => {
   return content.replace(/<pre>([\s\S]+?)<\/pre>/gm, (whole, code) => {
     const decoded = code
+      .replace(/^<code>|<\/code>$/g, '')
       .replace(/<br>/g, '\n')
       .replace(/&amp;/g, '&')
       .replace(/&lt;/g, '<')
